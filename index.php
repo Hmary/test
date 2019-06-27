@@ -317,6 +317,8 @@ usort($sortArray, 'sortByTask');
 print_r($sortArray);
 exit();
 /*
+
+1) Создать таблицы
 START TRANSACTION;
 
 CREATE TABLE `Operation` (
@@ -353,19 +355,29 @@ COMMIT;
 --
 
 
-Пользователь 1 дал пользователю 3  = 100,00 грн
-INSERT INTO `Operation` (`idUserActive`, `idUserPassive`, `SumOperation`) VALUES ('3', '1', '10000');
+2) Пользователь 1 дал пользователю 2  = 100,00 грн
+INSERT INTO `Operation` (`idUserActive`, `idUserPassive`, `SumOperation`) VALUES ('2', '1', '10000');
 
-Люди которые дали пользователю 1 и конкретно сколько
-select `idUserPassive`, SUM(SumOperation) from `Operation` where `idUserActive`=1 group by `idUserPassive`
 
-Сколько Человек 1 должен денег Человеку 2
+
+3) Сколько Человек 1 должен денег Человеку 2
 select SUM( `SumOperation`) from `Operation` where `idUserActive`=1 AND `idUserPassive`=2
 
-Сколько денег у пользователя 1 (с учетом займов)
+
+4) Сколько денег у пользователя 1 (с учетом займов)
 SELECT (SELECT y.sumCard from User as y where y.idUser=1)
 - SUM(x.`SumOperation`)
 + (SELECT SUM(z.`SumOperation`) FROM `Operation` as z  
   WHERE `idUserPassive`=1) as Balance FROM `Operation` as x WHERE x.`idUserActive`=1
+  
+
+  
+5) Люди которые дали пользователю 1 и конкретно сколько
+select `idUserPassive`, SUM(SumOperation) from `Operation` where `idUserActive`=1 group by `idUserPassive`
+---------------------------------
+select y.name, SUM(x.`SumOperation`) 
+from `Operation` as x Join User as y on (y.idUser=x.`idUserPassive`) 
+where x.`idUserActive`=1 group by x.`idUserPassive`
+
 
 */
