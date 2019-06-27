@@ -361,23 +361,23 @@ INSERT INTO `Operation` (`idUserActive`, `idUserPassive`, `SumOperation`) VALUES
 
 
 3) Сколько Человек 1 должен денег Человеку 2
-select SUM( `SumOperation`) from `Operation` where `idUserActive`=1 AND `idUserPassive`=2
+SELECT SUM( `SumOperation`) FROM `Operation` WHERE `idUserActive`=1 AND `idUserPassive`=2
 
 
 4) Сколько денег у пользователя 1 (с учетом займов)
-SELECT (SELECT y.sumCard from User as y where y.idUser=1)
+SELECT (SELECT y.sumCard FROM User AS y WHERE y.idUser=1)
 - SUM(x.`SumOperation`)
-+ (SELECT SUM(z.`SumOperation`) FROM `Operation` as z  
-  WHERE `idUserPassive`=1) as Balance FROM `Operation` as x WHERE x.`idUserActive`=1
++ (SELECT SUM(z.`SumOperation`) FROM `Operation` AS z  
+  WHERE `idUserPassive`=1) AS Balance FROM `Operation` AS x WHERE x.`idUserActive`=1
   
 
   
 5) Люди которые дали пользователю 1 и конкретно сколько
-select `idUserPassive`, SUM(SumOperation) from `Operation` where `idUserActive`=1 group by `idUserPassive`
+SELECT `idUserPassive`, SUM(SumOperation) FROM `Operation` WHERE `idUserActive`=1 GROUP BY `idUserPassive`
 ---------------------------------
-select y.name, SUM(x.`SumOperation`) 
-from `Operation` as x Join User as y on (y.idUser=x.`idUserPassive`) 
-where x.`idUserActive`=1 group by x.`idUserPassive`
+SELECT y.name, SUM(x.`SumOperation`) 
+FROM `Operation` AS x JOIN User AS y ON (y.idUser=x.`idUserPassive`) 
+WHERE x.`idUserActive`=1 GROUP BY x.`idUserPassive`
 
 
 */
