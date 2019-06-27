@@ -287,7 +287,7 @@ class taskClass {
 function dumpObj ($obj) {
     $result = array();
     foreach ((array)$obj as $key => $value) {
-        $result[] = array($key, $value);
+        $result[] = array($value);
     }
     return $result;
 }
@@ -296,22 +296,22 @@ function dumpObj ($obj) {
 
 
 //Сортируем -1 - меняем местами
-function sortByTask($element1, $element2){
-    if($element1[0] == $element2[0]) {
-            if ( $element1[1]+ $element1[2] > $element2[1]+$element2[2])  { return 1;}
+function sortByTask($a, $b){
+    if($a[0] == $b[0]) {
+            if ( $a[1]+ $a[2] > $b[1]+$b[2])  { return 1;}
             else { return -1; }
             }
     else{
-        if ($element1[0] > $element2[0]) { return 1; }
+        if ($a[0] > $b[0]) { return 1; }
         else { return -1; } 
     }
 }
 
 
 $objNew=new taskClass;
-//Достанем массив из приватного класса!!
+//Достанем массив
 $extractArray=(array)dumpObj($objNew);
-$sortArray = $extractArray[0][1];
+$sortArray = $extractArray[0][0];
 usort($sortArray, 'sortByTask');
 
 print_r($sortArray);
