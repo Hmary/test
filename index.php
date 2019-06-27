@@ -286,8 +286,8 @@ class taskClass {
 //Вынимаем из объекта массив
 function dumpObj ($obj) {
     $result = array();
-    foreach ((array)$obj as $name => $value) {
-        $result[] = array($name, $value);
+    foreach ((array)$obj as $key => $value) {
+        $result[] = array($key, $value);
     }
     return $result;
 }
