@@ -315,3 +315,48 @@ $sortArray = $extractArray[0][1];
 usort($sortArray, 'sortByTask');
 
 print_r($sortArray);
+exit();
+/*
+START TRANSACTION;
+
+CREATE TABLE `Operation` (
+  `idOperation` int(10) UNSIGNED NOT NULL,
+  `idUserActive` int(10) UNSIGNED NOT NULL,
+  `idUserPassive` int(10) UNSIGNED NOT NULL,
+  `SumOperation` int(15) NOT NULL COMMENT 'cent',
+  `dateOperation` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=MyISAM DEFAULT CHARSET=UTF-8;
+
+ALTER TABLE `Operation`
+  ADD PRIMARY KEY (`idOperation`),
+  ADD KEY `idUserActive` (`idUserActive`),
+  ADD KEY `idUserPassive` (`idUserPassive`);
+
+  ALTER TABLE `Operation`
+  MODIFY `idOperation` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+  
+CREATE TABLE `User` (
+  `idUser` int(11) UNSIGNED NOT NULL COMMENT 'key',
+  `name` varchar(200) DEFAULT NULL,
+  `sumCard` int(15) DEFAULT NULL,
+  `dateRegistration` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=MyISAM DEFAULT CHARSET=UTF-8;
+
+ALTER TABLE `User`
+  ADD PRIMARY KEY (`idUser`) USING BTREE;
+
+ALTER TABLE `User`
+  MODIFY `idUser` int(11) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT 'key', AUTO_INCREMENT=5;
+
+COMMIT;  
+--
+
+Количество человек которые дали пользователю 1
+select  count(`SumOperation`) from `Operation` where `idUserActive`=1 group by `idUserPassive`
+
+Сколько Человек 1 должен денег Человеку 2
+select SUM( `SumOperation`) from `Operation` where `idUserActive`=1 AND `idUserPassive`=2
+
+
+*/
